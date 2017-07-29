@@ -42,13 +42,18 @@
 
 
   // CREATE CONSTRUCTOR
-  function Squish(element) {
-    if (typeof element === 'string') {
-      element = document.querySelector(element)
+  function Squish(options) {
+    var options = options || {}
+
+    if (typeof options.element === 'string') {
+      options.element = document.querySelector(element)
     }
 
-    this.element = element || document.body
+    this.element = options.element || document.body
     this.element.style.transform = scaleString
+
+    if (options.transition) this.element.style.transition = 'transform '+options.transition+'s'
+
     var _this = this
     window.addEventListener('resize', function() {
       resizeHandler(_this)
@@ -86,7 +91,7 @@
 
   Squish.prototype.updateCSS = function() {
     this.element.style.width = this.frozenW+'px'
-    this.element.style.width = this.frozenH+'px'
+    this.element.style.height = this.frozenH+'px'
     this.element.style['transform-origin'] = 'top left'
     var transformString = this.element.style.transform
     var newScaleString = ' scale('+this.scaleW+','+this.scaleH+')'
@@ -103,7 +108,7 @@
   }
 
   // API
-  Squish.prototype.freeze = function(width, height) {
+  Squish.prototype.pin = function(width, height) {
     this.isFrozen = true
 
     if (width && height) {
@@ -114,12 +119,13 @@
       this.frozenH = windowH
     }
 
-    this.updateCSS
+    // recalculate css
+    resizeHandler(this)
 
     return this
   }
 
-  Squish.prototype.unfreeze = function() {
+  Squish.prototype.unpin = function() {
     if (this.isFrozen) {
       this.isFrozen = false
       document.body.transform = ''

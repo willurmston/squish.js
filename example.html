@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>squish.js</title>
+
+    <style media="screen">
+      button {
+        display: block;
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="text">
+      <h2>This is some header text</h2>
+      <p>And now, some smol text</p>
+    </div>
+    <img src="http://lorempixel.com/800/600/cats" alt="">
+
+    <button type="button" name="pin" onclick="squish.pin();">Click to pin at this window size, then try resizing the window</button>
+    <button type="button" name="unpin" onclick="squish.unpin();">Click to release</button>
+
+    <script src="squish.js" charset="utf-8"></script>
+    <script type="text/javascript">
+
+      // initialize squish and pin it at the initial width and height
+      var squish = new Squish({
+        transition: 0.15 // CSS transition duration
+      }).pin()
+
+
+    </script>
+  </body>
+</html>

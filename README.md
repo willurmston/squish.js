@@ -1,20 +1,24 @@
 
 # squish.js
-A useless tool to freeze a page's width and height and then css transform the window to stretch to fill it.
+A useless tool to pin a page's width and height and then css transform the window to stretch to fill it.
 
 # Help me
 ```javascript
 
 // by default the affected element is document.body
 var squish = new Squish()
-// pro tip: you can also supply an element or selector to the constructor
-var squishyText = new Squish('.text')
 
-// freeze and stretch at the current window width and height
-squish.freeze()
-// or supply a width and height to freeze at
-squish.freeze(700, 500)
+// pro tip: advanced
+var squish = new Squish({
+  element: '#squishy', // CSS selector or HTML element
+  transition: 0.2 // CSS transition duration
+})
+
+// pin and stretch at the current window width and height
+squish.pin()
+// or supply a width and height to pin at
+squish.pin(700, 500)
 // let it go
-squish.unfreeze()
+squish.unpin()
 
 ```
